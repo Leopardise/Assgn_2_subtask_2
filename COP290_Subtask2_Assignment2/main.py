@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import messagebox
 import random
+from PIL import Image, ImageTk
+import pygame
+from pygame.locals import *
+import os
+
 
 class Animal:
     def __init__(self, species, health=100):
@@ -64,16 +69,75 @@ def interact_with_animal(animal):
 # Initialize main window
 root = tk.Tk()
 root.title("Pet Rescue Quest")
-root.geometry("400x300")
+root.geometry("800x600")
 
 lbl_heading = tk.Label(root, text="Welcome to Pet Rescue Quest!")
 lbl_heading.pack(pady=10)
 
-lbl_info = tk.Label(root, text="Choose an animal to interact with:")
-lbl_info.pack()
+# Load GIF frames
+gif_frames = []
+gif = Image.open("forest2.gif")
+try:
+    while True:
+        
+        frame = gif.copy()
+        frame.thumbnail((root.winfo_screenwidth(), root.winfo_screenheight()))
+        frame = frame.resize((root.winfo_width(), root.winfo_height()), Image.LANCZOS)  # Resize to fit window
+        
+        # gif_frames.append(ImageTk.PhotoImage(gif.copy()))
+        gif_frames.append(ImageTk.PhotoImage(gif.copy()))
+        gif.seek(len(gif_frames))  # Go to the next frame
+except EOFError:
+    pass
 
+# Display GIF frames
+gif_index = 0
+background_label = tk.Label(root)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+def update_gif():
+    global gif_index
+    root.after(100, update_gif)  # Adjust the speed of the GIF here
+    background_label.config(image=gif_frames[gif_index])
+    background_label.image = gif_frames[gif_index]
+    gif_index = (gif_index + 1) % len(gif_frames)
+
+update_gif()
+
+# Load and resize images
+dog_img = Image.open("dog.jpg").resize((200, 200), Image.LANCZOS)
+dog_photo = ImageTk.PhotoImage(dog_img)
+
+cat_img = Image.open("cat.jpg").resize((200, 200), Image.LANCZOS)
+cat_photo = ImageTk.PhotoImage(cat_img)
+
+bird_img = Image.open("bird.jpg").resize((200, 200), Image.LANCZOS)
+bird_photo = ImageTk.PhotoImage(bird_img)
+
+button_width = 200
+button_height = 200
+
+centre_x = (root.winfo_screenwidth()) / 2
+centre_y = (root.winfo_screenheight()) / 4
+
+start_x = centre_x - button_width / 2
+start_y = centre_y - button_height / 2
+
+# Display buttons with resized images
+animal_buttons = []
 for idx, animal in enumerate(shelter.animals):
-    btn_animal = tk.Button(root, text=animal.species, command=lambda a=animal: interact_with_animal(a))
-    btn_animal.pack()
+    if animal.species == "Dog":
+        btn_animal = tk.Button(root, text=animal.species, image=dog_photo, compound="left", command=lambda a=animal: interact_with_animal(a))
+    elif animal.species == "Cat":
+        btn_animal = tk.Button(root, text=animal.species, image=cat_photo, compound="left", command=lambda a=animal: interact_with_animal(a))
+    elif animal.species == "Bird":
+        btn_animal = tk.Button(root, text=animal.species, image=bird_photo, compound="left", command=lambda a=animal: interact_with_animal(a))
+    animal_buttons.append(btn_animal)
+
+# Calculate vertical center
+# vertical_center = (600 - len(animal_buttons) * 220) / 2
+
+# Place animal buttons
+for idx, btn_animal in enumerate(animal_buttons):
+    btn_animal.place(x=start_x, y=start_y + idx * (button_height + 20))
 
 root.mainloop()
