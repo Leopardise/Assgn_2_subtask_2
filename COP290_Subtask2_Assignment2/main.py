@@ -1,11 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
-import random
 from PIL import Image, ImageTk
-import pygame
-from pygame.locals import *
-import os
-
+import random
 
 class Animal:
     def __init__(self, species, health=100):
@@ -13,13 +9,13 @@ class Animal:
         self.health = health
 
     def feed(self):
-        self.health += random.randint(5, 15)
+        self.health += 10
 
     def treat(self):
-        self.health += random.randint(10, 20)
+        self.health += 10
 
     def play(self):
-        self.health += random.randint(5, 10)
+        self.health += 10
 
 class Shelter:
     def __init__(self):
@@ -33,111 +29,83 @@ class Shelter:
 
 # Initialize shelter and animals
 shelter = Shelter()
-shelter.add_animal(Animal("Dog"))
-shelter.add_animal(Animal("Cat"))
+shelter.add_animal(Animal("Animal"))
 shelter.add_animal(Animal("Bird"))
-
-def interact_with_animal(animal):
-    def feed():
-        animal.feed()
-        messagebox.showinfo("Interaction", f"You fed the {animal.species}. Health increased to {animal.health}.")
-
-    def treat():
-        animal.treat()
-        messagebox.showinfo("Interaction", f"You treated the {animal.species}. Health increased to {animal.health}.")
-
-    def play():
-        animal.play()
-        messagebox.showinfo("Interaction", f"You played with the {animal.species}. Health increased to {animal.health}.")
-
-    window = tk.Toplevel(root)
-    window.title(animal.species)
-    window.geometry("300x200")
-
-    lbl_animal = tk.Label(window, text=f"{animal.species} - Health: {animal.health}")
-    lbl_animal.pack(pady=10)
-
-    btn_feed = tk.Button(window, text="Feed", command=feed)
-    btn_feed.pack()
-
-    btn_treat = tk.Button(window, text="Treat", command=treat)
-    btn_treat.pack()
-
-    btn_play = tk.Button(window, text="Play", command=play)
-    btn_play.pack()
 
 # Initialize main window
 root = tk.Tk()
 root.title("Pet Rescue Quest")
 root.geometry("800x600")
 
-lbl_heading = tk.Label(root, text="Welcome to Pet Rescue Quest!")
-lbl_heading.pack(pady=10)
-
-# Load GIF frames
-gif_frames = []
-gif = Image.open("forest2.gif")
-try:
-    while True:
-        
-        frame = gif.copy()
-        frame.thumbnail((root.winfo_screenwidth(), root.winfo_screenheight()))
-        frame = frame.resize((root.winfo_width(), root.winfo_height()), Image.LANCZOS)  # Resize to fit window
-        
-        # gif_frames.append(ImageTk.PhotoImage(gif.copy()))
-        gif_frames.append(ImageTk.PhotoImage(gif.copy()))
-        gif.seek(len(gif_frames))  # Go to the next frame
-except EOFError:
-    pass
-
-# Display GIF frames
-gif_index = 0
-background_label = tk.Label(root)
-background_label.place(x=0, y=0, relwidth=1, relheight=1)
-def update_gif():
-    global gif_index
-    root.after(100, update_gif)  # Adjust the speed of the GIF here
-    background_label.config(image=gif_frames[gif_index])
-    background_label.image = gif_frames[gif_index]
-    gif_index = (gif_index + 1) % len(gif_frames)
-
-update_gif()
-
 # Load and resize images
-dog_img = Image.open("dog.jpg").resize((200, 200), Image.LANCZOS)
-dog_photo = ImageTk.PhotoImage(dog_img)
+gif_frames = []
+# Load and resize images
+gif_frames = []
+for i in range(36):
+    img = Image.open(f"{i}.gif").resize((100, 100), Image.LANCZOS)
+    gif_frames.append(ImageTk.PhotoImage(img))
 
-cat_img = Image.open("cat.jpg").resize((200, 200), Image.LANCZOS)
-cat_photo = ImageTk.PhotoImage(cat_img)
 
-bird_img = Image.open("bird.jpg").resize((200, 200), Image.LANCZOS)
-bird_photo = ImageTk.PhotoImage(bird_img)
+# Create canvas for displaying GIF matrix
+canvas = tk.Canvas(root, width=600, height=600)
+canvas.pack()
 
-button_width = 200
-button_height = 200
+# Initialize player position
+player_position = 30
 
-centre_x = (root.winfo_screenwidth()) / 2
-centre_y = (root.winfo_screenheight()) / 4
+# Function to update player position
+def move(direction):
+    global player_position
+    if direction == "left":
+        if player_position % 6 != 0:
+            player_position -= 1
+    elif direction == "right":
+        if (player_position + 1) % 6 != 0:
+            player_position += 1
+    elif direction == "forward":
+        if player_position >= 6:
+            player_position -= 6
+    elif direction == "backward":
+        if player_position < 30:
+            player_position += 6
 
-start_x = centre_x - button_width / 2
-start_y = centre_y - button_height / 2
+    update_board()
 
-# Display buttons with resized images
-animal_buttons = []
-for idx, animal in enumerate(shelter.animals):
-    if animal.species == "Dog":
-        btn_animal = tk.Button(root, text=animal.species, image=dog_photo, compound="left", command=lambda a=animal: interact_with_animal(a))
-    elif animal.species == "Cat":
-        btn_animal = tk.Button(root, text=animal.species, image=cat_photo, compound="left", command=lambda a=animal: interact_with_animal(a))
-    elif animal.species == "Bird":
-        btn_animal = tk.Button(root, text=animal.species, image=bird_photo, compound="left", command=lambda a=animal: interact_with_animal(a))
-    animal_buttons.append(btn_animal)
+# Function to check win or lose
+def check_status():
+    global player_position
+    if player_position == 5:
+        messagebox.showinfo("Congratulations", "You reached the sanctuary! You win!")
+        root.destroy()
+    elif shelter.animals[0].health <= 0:
+        messagebox.showinfo("Game Over", "Your pet's health reached 0. You lose!")
+        root.destroy()
 
-# Calculate vertical center
-# vertical_center = (600 - len(animal_buttons) * 220) / 2
+# Function to update the board
+def update_board():
+    canvas.delete("all")
+    for i in range(6):
+        for j in range(6):
+            idx = i * 6 + j + 30
+            if idx == 9 or idx == 23:
+                canvas.create_rectangle(j * 100, i * 100, (j + 1) * 100, (i + 1) * 100, fill="red")
+            elif idx == 3 or idx == 13 or idx == 18 or idx == 27 or idx == 33:
+                canvas.create_rectangle(j * 100, i * 100, (j + 1) * 100, (i + 1) * 100, fill="blue")
+            elif idx == 0 or idx == 6:
+                canvas.create_rectangle(j * 100, i * 100, (j + 1) * 100, (i + 1) * 100, fill="green")
+            else:
+                canvas.create_image(j * 100 + 50, i * 100 + 50, image=gif_frames[idx])
+    canvas.create_image((player_position % 6) * 100 + 50, (player_position // 6) * 100 + 50, image=gif_frames[shelter.animals[0].health])
 
-# Place animal buttons
-for idx, btn_animal in enumerate(animal_buttons):
-    btn_animal.place(x=start_x, y=start_y + idx * (button_height + 20))
+    check_status()
+
+# Bind arrow key presses to movement
+root.bind("<Left>", lambda event: move("left"))
+root.bind("<Right>", lambda event: move("right"))
+root.bind("<Up>", lambda event: move("forward"))
+root.bind("<Down>", lambda event: move("backward"))
+
+# Initial board setup
+update_board()
 
 root.mainloop()
