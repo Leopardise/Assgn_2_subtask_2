@@ -7,6 +7,7 @@ from PIL import Image, ImageTk
 
 
 player_position = (0,0)
+gif_frames = []
 class Animal:
     def __init__(self, species, health=100):
         self.species = species
@@ -32,10 +33,12 @@ class Animal:
         
         player_position = (0, 0)
         
-        gif_frames = []
+       
         for i in range(36):
             img = Image.open(f"{i}.gif").resize((screen_width, screen_height), Image.LANCZOS)
+            # img = Image.open(f"{i}.gif").resize((100, 100), Image.LANCZOS)
             gif_frames.append(ImageTk.PhotoImage(img))
+            print(i)
         # print("gif_frame == ", len(gif_frames))
         cell_size = 100
         # Bind arrow key presses to movement
@@ -46,7 +49,7 @@ class Animal:
 
         # Initial board setup
         update_board(cell_size, canvas)
-        root.mainloop()
+        # root.mainloop()
                 
         
 
@@ -172,6 +175,7 @@ centre_y = (root.winfo_screenheight()) / 4
 start_x = centre_x - button_width / 2
 start_y = centre_y - button_height / 2
 
+
 # Display buttons with resized images
 animal_buttons = []
 for idx, animal in enumerate(shelter.animals):
@@ -226,7 +230,6 @@ def check_status():
 
 # Function to update the board
 def update_board(cell_size, canvas):
-    global player_position
     canvas.delete("all")
     for i in range(6):
         for j in range(6):
@@ -234,9 +237,7 @@ def update_board(cell_size, canvas):
             if (i, j) == player_position:
                 # colour = "blue"
                 canvas.create_image(i * cell_size + cell_size / 2, j * cell_size + cell_size / 2, image=gif_frames[idx])
-                print(idx)
                 if (i, j) == (1,1):
                     animal.health += 10
                 check_status()
-
 root.mainloop()
