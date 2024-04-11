@@ -5,12 +5,12 @@ from moviepy.editor import TextClip
 
 pygame.init()
 
-pygame.mixer.init()  # Initialize the mixer
-pygame.mixer.music.load('background_music.mp3')  # Load your background music file
+# pygame.mixer.init()  # Initialize the mixer
+# pygame.mixer.music.load('background_music.mp3')  # Load your background music file
 
-pygame.mixer.music.play(-1)  # Play the music on loop (-1 means infinite loop)
+# pygame.mixer.music.play(-1)  # Play the music on loop (-1 means infinite loop)
 
-pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
+# pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
 
 
 # Set up the display
@@ -161,89 +161,48 @@ def play_video():
     video_screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption("Pet Rescue Quest")  # Set window title
     clip = VideoFileClip("watch.mp4")
-
-
-
-
-    # # Set the position of the back button
-    # back_button_position = (20, 20)
-    # # Blit the back button image to the screen at the specified position
-    # screen.blit(back_button_image, back_button_position)
-    #
-    # # Inside the event loop
-    # for event in pygame.event.get():
-    #     if event.type == pygame.QUIT:
-    #         pygame.quit()
-    #         sys.exit()
-    #     elif event.type == pygame.MOUSEBUTTONDOWN:
-    #         mouse_pos = pygame.mouse.get_pos()
-    #         if is_button_clicked(pygame.Rect((WINDOW_WIDTH - play_button_size) // 2, int(WINDOW_HEIGHT * 0.65) - play_button_size // 2, play_button_size, play_button_size), pygame.mouse.get_pos()):
-    #             gameplay(100)  # Call the gameplay(100) method when the back button is clicked
-
-
-
-
-
-
-
-    # Fit the video to the window size
-    scaled_clip = clip.resize((WINDOW_WIDTH, WINDOW_HEIGHT))
-    # Get frames of the video
-    frames = scaled_clip.iter_frames(fps=1500)  # Adjusted frame rate (decreased by 20%)
-    # Loop through frames and display them on the video screen
+    audio_clip = clip.audio
     
+    pygame.mixer.init()
+    pygame.mixer.music.load("background_music.mp3")
+    pygame.mixer.music.play(-1)
     
-    back_button_size = min(WINDOW_WIDTH, WINDOW_HEIGHT) // 10
-    back_button_image_scaled = pygame.transform.scale(back_button_image, (back_button_size, back_button_size))
+ 
     
-    
-    for frame in frames:
-        # Convert the frame to a format Pygame can use
-        frame_surface = pygame.image.frombuffer(frame, (WINDOW_WIDTH, WINDOW_HEIGHT), 'RGB')
-        video_screen.blit(frame_surface, (0, 0))
-        
-        video_screen.blit(back_button_image_scaled, (20,20))
+    try:
+        # Fit the video to the window size
+        scaled_clip = clip.resize((WINDOW_WIDTH, WINDOW_HEIGHT))
+        # Get frames of the video
+        frames = scaled_clip.iter_frames(fps=1500)  # Adjusted frame rate (decreased by 20%)
+        # Loop through frames and display them on the video screen
         
         
-        # Create a text surface
-        # text_content = """
-        # In shadows deep, where wild hearts quake,
-        # Beneath the weight of mankind's wake,
-        # Innocent eyes meet cruel fate's decree,
-        # As pain and sorrow grip each plea.
-        #
-        # Yet in the hearts of those who see,
-        # A sanctuary born, a refuge free,
-        # For creatures battered, broken, torn,
-        # A haven found, where hope is sworn.
-        #
-        # To those who tend with gentle hand,
-        # To creatures of the earth and sand,
-        # Reward is due for love untold,
-        # True nature's stewards, brave and bold.
-        # """
-        # text_surface = pygame.font.SysFont("Algerian", 20).render(text_content, True, (255, 255, 255))
-        # text_rect = pygame.Rect(
-        #     (WINDOW_WIDTH / 2 - text_surface.get_width() / 2),
-        #     (WINDOW_HEIGHT / 2 - text_surface.get_height() / 2),
-        #     text_surface.get_width(),
-        #     text_surface.get_height(),
-        # )
-        # video_screen.blit(text_surface, text_rect)
-
-
-
-        # Update the display
-        pygame.display.flip()
-        # Check for quit event
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                back_button_rect = pygame.Rect(20, 20, back_button_size, back_button_size)
-                if is_button_clicked(back_button_rect, pygame.mouse.get_pos()):
-                    return
+        back_button_size = min(WINDOW_WIDTH, WINDOW_HEIGHT) // 10
+        back_button_image_scaled = pygame.transform.scale(back_button_image, (back_button_size, back_button_size))
+        
+        
+        for frame in frames:
+            # Convert the frame to a format Pygame can use
+            frame_surface = pygame.image.frombuffer(frame, (WINDOW_WIDTH, WINDOW_HEIGHT), 'RGB')
+            video_screen.blit(frame_surface, (0, 0))
+            
+            video_screen.blit(back_button_image_scaled, (20,20))
+            
+            # Update the display
+            pygame.display.flip()
+            # Check for quit event
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    back_button_rect = pygame.Rect(20, 20, back_button_size, back_button_size)
+                    if is_button_clicked(back_button_rect, pygame.mouse.get_pos()):
+                        return
+    finally:
+        pygame.mixer.music.stop()
+        pygame.mixer.quit()
+        
 
 
 # Run the game
