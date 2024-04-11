@@ -163,6 +163,8 @@ def play_video():
     clip = VideoFileClip("watch.mp4")
 
 
+
+
     # # Set the position of the back button
     # back_button_position = (20, 20)
     # # Blit the back button image to the screen at the specified position
@@ -180,15 +182,29 @@ def play_video():
 
 
 
+
+
+
+
     # Fit the video to the window size
     scaled_clip = clip.resize((WINDOW_WIDTH, WINDOW_HEIGHT))
     # Get frames of the video
     frames = scaled_clip.iter_frames(fps=1500)  # Adjusted frame rate (decreased by 20%)
     # Loop through frames and display them on the video screen
+    
+    
+    back_button_size = min(WINDOW_WIDTH, WINDOW_HEIGHT) // 10
+    back_button_image_scaled = pygame.transform.scale(back_button_image, (back_button_size, back_button_size))
+    
+    
     for frame in frames:
         # Convert the frame to a format Pygame can use
         frame_surface = pygame.image.frombuffer(frame, (WINDOW_WIDTH, WINDOW_HEIGHT), 'RGB')
         video_screen.blit(frame_surface, (0, 0))
+        
+        video_screen.blit(back_button_image_scaled, (20,20))
+        
+        
         # Create a text surface
         # text_content = """
         # In shadows deep, where wild hearts quake,
@@ -215,6 +231,8 @@ def play_video():
         # )
         # video_screen.blit(text_surface, text_rect)
 
+
+
         # Update the display
         pygame.display.flip()
         # Check for quit event
@@ -222,6 +240,10 @@ def play_video():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                back_button_rect = pygame.Rect(20, 20, back_button_size, back_button_size)
+                if is_button_clicked(back_button_rect, pygame.mouse.get_pos()):
+                    return
 
 
 # Run the game
