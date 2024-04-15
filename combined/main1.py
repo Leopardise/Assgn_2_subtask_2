@@ -219,7 +219,7 @@ def display_injured_animal_window():
                     # Transition to main2.py
                     pygame.quit()
                     # main2  # Call the main function from main2.py
-                    subprocess.Popen(["python3", "main2.py"])
+                    subprocess.Popen(["python", "main2.py"])
                     return
 
 def display_injured_bird_window():
@@ -267,7 +267,7 @@ def display_injured_bird_window():
                     # Transition to main2.py
                     pygame.quit()
                     # main2  # Call the main function from main2.py
-                    subprocess.Popen(["python3", "main2.py"])
+                    subprocess.Popen(["python", "main2.py"])
                     return
 
 
@@ -276,7 +276,7 @@ def play_video():
     # Create a separate display surface for video playback
     video_screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption("Animal Rescue Quest")  # Set window title
-    clip = VideoFileClip("watch.mp4")
+    clip = VideoFileClip("watch_2.mp4")
     audio_clip = clip.audio
 
     try:

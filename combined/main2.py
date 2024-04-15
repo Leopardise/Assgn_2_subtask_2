@@ -46,10 +46,10 @@ images_2 = [
     load_and_scale_image("10.jpg"),
     load_and_scale_image("12.jpg"),
     load_and_scale_image("9.jpg"),
-    load_and_scale_image("14.jpg"),
+    load_and_scale_image("20.jpg"),
     load_and_scale_image("4.jpg"),
     load_and_scale_image("1.jpg"),
-    load_and_scale_image("13.jpg"),
+    load_and_scale_image("19.jpg"),
     load_and_scale_image("3.jpg"),
     load_and_scale_image("11.jpg")
 ]
@@ -93,42 +93,161 @@ images_5 = [
     load_and_scale_image("23.jpg")
 ]
 
-# Load back image and scale it down to 75% of its original size
-back_image = pygame.image.load("back_1.jpg").convert()
-new_width = int(WINDOW_WIDTH * 0.95)
-new_height = int(WINDOW_HEIGHT * 0.95)
-back_image = pygame.transform.scale(back_image, (new_width, new_height))
+# Load Images for the second window
+images_6 = [
+    load_and_scale_image("9.jpg"),
+    load_and_scale_image("13.jpg"),
+    load_and_scale_image("14.jpg"),
+    load_and_scale_image("1.jpg"),
+    load_and_scale_image("4.jpg"),
+    load_and_scale_image("21.jpg"),
+    load_and_scale_image("11.jpg"),
+    load_and_scale_image("5.jpg"),
+    load_and_scale_image("22.jpg")
+]
 
-# Calculate the coordinates to blit the image at the center of the screen
-back_x = (WINDOW_WIDTH - new_width) // 2
-back_y = (WINDOW_HEIGHT - new_height) // 2
+# Load Images
+images_7 = [
+  load_and_scale_image("12.jpg"),
+  load_and_scale_image("9.jpg"),
+  load_and_scale_image("13.jpg"),
+  load_and_scale_image("0.jpg"),
+  load_and_scale_image("4.jpg"),
+  load_and_scale_image("2.jpg"),
+  load_and_scale_image("3.jpg"),
+  load_and_scale_image("11.jpg"),
+  load_and_scale_image("5.jpg")
+]
 
-def display_caution_screen():
-  SCREEN.blit(back_image, (back_x, back_y))
-  font = pygame.font.SysFont("Algerian", 50)
-  text = font.render('Caution: Danger within 1km', True, WHITE)
-  text_rect = text.get_rect(center=(WINDOW_WIDTH//2, WINDOW_HEIGHT//2))
-  SCREEN.blit(text, text_rect)
+# Load Images
+images_1 = [
+  load_and_scale_image("50.jpg"),
+  load_and_scale_image("51.jpg"),
+  load_and_scale_image("52.jpg"),
+  load_and_scale_image("53.jpg"),
+  load_and_scale_image("60.jpg"),
+  load_and_scale_image("54.jpg"),
+  load_and_scale_image("55.jpg"),
+  load_and_scale_image("56.jpg"),
+  load_and_scale_image("57.jpg")
+]
 
-  # Load and scale the back button image
-  back_button_image = pygame.image.load("back_button.png").convert_alpha()
-  back_button_image = pygame.transform.scale(back_button_image, (50, 50))
+# Load Images for the second window
+images_8 = [
+    load_and_scale_image("24.jpg"),
+    load_and_scale_image("10.jpg"),
+    load_and_scale_image("12.jpg"),
+    load_and_scale_image("u.jpg"),
+    load_and_scale_image("4.jpg"),
+    load_and_scale_image("0.jpg"),
+    load_and_scale_image("25.jpg"),
+    load_and_scale_image("19.jpg"),
+    load_and_scale_image("3.jpg")
+]
 
-  # Calculate the position to blit the back button (top left corner)
-  button_x = 20
-  button_y = 20
+# Load Images for the second window
+images_9 = [
+    load_and_scale_image("u.jpg"),
+    load_and_scale_image("26.jpg"),
+    load_and_scale_image("27.jpg"),
+    load_and_scale_image("24.jpg"),
+    load_and_scale_image("4.jpg"),
+    load_and_scale_image("12.jpg"),
+    load_and_scale_image("u.jpg"),
+    load_and_scale_image("20.jpg"),
+    load_and_scale_image("0.jpg")
+]
 
-  # Blit the back button onto the screen
-  SCREEN.blit(back_button_image, (button_x, button_y))
+# Load Images
+images_10 = [
+  load_and_scale_image("26.jpg"),
+  load_and_scale_image("27.jpg"),
+  load_and_scale_image("m.jpg"),
+  load_and_scale_image("10.jpg"),
+  load_and_scale_image("4.jpg"),
+  load_and_scale_image("9.jpg"),
+  load_and_scale_image("20.jpg"),
+  load_and_scale_image("0.jpg"),
+  load_and_scale_image("1.jpg")
+]
 
-  # Check for mouse click on the back button
-  mouse_x, mouse_y = pygame.mouse.get_pos()
-  if button_x < mouse_x < button_x + 50 and button_y < mouse_y < button_y + 50:
-    if pygame.mouse.get_pressed()[0]: # Check for left mouse button click
-      return False # Signal to move back to the tile window
+# Load Images
+images_11 = [
+  load_and_scale_image("27.jpg"),
+  load_and_scale_image("m.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("12.jpg"),
+  load_and_scale_image("4.jpg"),
+  load_and_scale_image("13.jpg"),
+  load_and_scale_image("0.jpg"),
+  load_and_scale_image("1.jpg"),
+  load_and_scale_image("2.jpg")
+]
 
-  return True # Continue displaying the caution screen
+# Load Images
+images_12 = [
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("13.jpg"),
+  load_and_scale_image("4.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("2.jpg"),
+  load_and_scale_image("21.jpg"),
+  load_and_scale_image("u.jpg")
+]
 
+# Load Images
+images_13 = [
+  load_and_scale_image("13.jpg"),
+  load_and_scale_image("14.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("2.jpg"),
+  load_and_scale_image("4.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("3.jpg"),
+  load_and_scale_image("22.jpg"),
+  load_and_scale_image("u.jpg")
+]
+
+# Load Images
+images_14 = [
+  load_and_scale_image("2.jpg"),
+  load_and_scale_image("21.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("5.jpg"),
+  load_and_scale_image("4.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("8.jpg"),
+  load_and_scale_image("23.jpg"),
+  load_and_scale_image("u.jpg")
+]
+
+# Load Images
+images_15 = [
+  load_and_scale_image("19.jpg"),
+  load_and_scale_image("3.jpg"),
+  load_and_scale_image("11.jpg"),
+  load_and_scale_image("18.jpg"),
+  load_and_scale_image("4.jpg"),
+  load_and_scale_image("7.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("15.jpg"),
+  load_and_scale_image("u.jpg")
+]
+
+# Load Images
+images_16 = [
+  load_and_scale_image("5.jpg"),
+  load_and_scale_image("22.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("8.jpg"),
+  load_and_scale_image("4.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("17.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("u.jpg")
+]
 
 def draw_grid(images):
   for x in range(0, WINDOW_WIDTH, int(BLOCK_WIDTH)):
@@ -139,7 +258,6 @@ def draw_grid(images):
       # Calculate image index based on tile position
       image_index = (y // BLOCK_HEIGHT) * 3 + (x // BLOCK_WIDTH)
       SCREEN.blit(images[image_index], (x, y)) # Display the image
-
 
 
 def mouse_pos():
@@ -163,40 +281,87 @@ while running:
         continue
       x, y = mouse_pos()
       image_index = y * 3 + x
-      if image_index == 0 and game_state == "tile_game_3":  # Clicked on 0.jpg
-        game_state = "tile_game_1"
-      elif image_index == 0 and game_state == "tile_game_1":  # Clicked on 0.jpg
+      # if image_index == 0 and game_state == "tile_game_3":  # Clicked on 0.jpg
+      #   game_state = "tile_game_1"
+      if (image_index == 0 and game_state == "tile_game_1") or (image_index == 3 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_5"):  # Clicked on 0.jpg
         game_state = "tile_game_2"
-      elif image_index == 7 and game_state == "tile_game_1":  # Clicked on 0.jpg
+      elif (image_index == 7 and game_state == "tile_game_1") or (image_index == 8 and game_state == "tile_game_5") or (image_index == 6 and game_state == "tile_game_6"):  # Clicked on 0.jpg
         game_state = "tile_game_4"
-      elif image_index == 3 and game_state == "tile_game_1":  # Clicked on 0.jpg
+      elif (image_index == 3 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_2") or (image_index == 6 and game_state == "tile_game_8"):  # Clicked on 0.jpg
         game_state = "tile_game_5"
-      elif image_index == 5 and game_state == "tile_game_1":  # Clicked on 0.jpg
+      elif (image_index == 5 and game_state == "tile_game_1") or (image_index == 8 and game_state == "tile_game_8") or (image_index == 7 and game_state == "tile_game_7"):  # Clicked on 0.jpg
         game_state = "tile_game_6"
-      elif image_index == 6 or image_index == 8 and game_state == "tile_game_1":
+      elif (image_index == 2 and game_state == "tile_game_1") or (image_index == 5 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+        game_state = "tile_game_7"
+      elif (image_index == 1 and game_state == "tile_game_1") or (image_index == 5 and game_state == "tile_game_2") or (image_index == 3 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_5") or (image_index == 0 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+        game_state = "tile_game_8"
+      elif (image_index == 6 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_5"):
         game_state = "tile_game_3"
-        caution_screen = True
+    elif (image_index == 8 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_6"):
+        game_state = "tile_game_3"
+      elif (image_index == 3 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_5"):  # Clicked on 0.jpg
+        game_state = "tile_game_9"
+      elif image_index == 0 and game_state == "tile_game_2":  # Clicked on 0.jpg
+        game_state = "tile_game_10"
+      elif (image_index == 1 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_8"):  # Clicked on 0.jpg
+        game_state = "tile_game_11"
+      elif (image_index == 2 and game_state == "tile_game_2") or (image_index == 1 and game_state == "tile_game_8") or (image_index == 0 and game_state == "tile_game_7") or (image_index == 5 and game_state == "tile_game_5"):  # Clicked on 0.jpg
+        game_state = "tile_game_12"
+      elif (image_index == 8 and game_state == "tile_game_2") or (image_index == 7 and game_state == "tile_game_8") or (image_index == 6 and game_state == "tile_game_7") or (image_index == 3 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+        game_state = "tile_game_1"
+      elif (image_index == 2 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+        game_state = "tile_game_13"
+      elif image_index == 5 and game_state == "tile_game_7":  # Clicked on 0.jpg
+        game_state = "tile_game_14"
+      elif (image_index == 8 and game_state == "tile_game_7") or (image_index == 5 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+        game_state = "tile_game_15"
+      elif image_index == 6 and game_state == "tile_game_5":  # Clicked on 0.jpg
+        game_state = "tile_game_16"
+      elif image_index == 8 and game_state == "tile_game_6":  # Clicked on 0.jpg
+        game_state = "tile_game_17"
+
+
     if event.type == pygame.KEYDOWN:
       if event.key == pygame.K_ESCAPE:
         running = False
 
   SCREEN.fill(BACKGROUND_COLOR)
 
-  if caution_screen:
-    caution_screen = display_caution_screen()
-    if not caution_screen:
-        caution_screen = False
 
-  elif game_state == "tile_game_1":
+  if game_state == "tile_game_1":
         draw_grid(images)
   elif game_state == "tile_game_2":
         draw_grid(images_2)
+  elif game_state == "tile_game_3":
+        draw_grid(images_1)
   elif game_state == "tile_game_4":
         draw_grid(images_3)
   elif game_state == "tile_game_5":
         draw_grid(images_4)
   elif game_state == "tile_game_6":
         draw_grid(images_5)
+  elif game_state == "tile_game_7":
+        draw_grid(images_6)
+  elif game_state == "tile_game_8":
+        draw_grid(images_7)
+  elif game_state == "tile_game_9":
+        draw_grid(images_8)
+  elif game_state == "tile_game_10":
+        draw_grid(images_9)
+  elif game_state == "tile_game_11":
+        draw_grid(images_10)
+  elif game_state == "tile_game_12":
+        draw_grid(images_11)
+  elif game_state == "tile_game_13":
+        draw_grid(images_12)
+  elif game_state == "tile_game_14":
+        draw_grid(images_13)
+  elif game_state == "tile_game_15":
+        draw_grid(images_14)
+  elif game_state == "tile_game_16":
+        draw_grid(images_15)
+  elif game_state == "tile_game_17":
+        draw_grid(images_16)
 
   pygame.display.flip()
 
