@@ -2,6 +2,7 @@ import pygame
 import sys
 from moviepy.editor import VideoFileClip
 from moviepy.editor import TextClip
+import subprocess
 # import main2
 
 pygame.init()
@@ -154,6 +155,7 @@ def gameplay(health):
                     if show_injured_animal:
                         display_injured_animal_window()
                         show_injured_animal = False  # Reset flag after displaying injured animal
+                        subprocess.Popen(["python3", "main2.py"])
 
 
                 elif is_button_clicked(pygame.Rect((WINDOW_WIDTH - button_size) // 2, int(WINDOW_HEIGHT * 0.80) - button_size // 2, button_size, button_size), pygame.mouse.get_pos()):
@@ -162,6 +164,7 @@ def gameplay(health):
                     if show_injured_bird:
                         display_injured_bird_window()
                         show_injured_bird = False
+                        subprocess.Popen(["python3", "main2.py"])
 
 
                 elif is_button_clicked(pygame.Rect(WINDOW_WIDTH - watch_video_button_size - 20, WINDOW_HEIGHT - watch_video_button_size - 20, watch_video_button_size, watch_video_button_size), pygame.mouse.get_pos()):
