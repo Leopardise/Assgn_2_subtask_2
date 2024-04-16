@@ -249,6 +249,19 @@ images_16 = [
   load_and_scale_image("u.jpg")
 ]
 
+# Load Images
+images_17 = [
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("20.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("4.jpg"),
+  load_and_scale_image("19.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("u.jpg"),
+  load_and_scale_image("18.jpg")
+]
+
 
 def draw_grid(images):
   for x in range(0, WINDOW_WIDTH, int(BLOCK_WIDTH)):
@@ -284,11 +297,11 @@ while running:
       image_index = y * 3 + x
       # if image_index == 0 and game_state == "tile_game_3":  # Clicked on 0.jpg
       #   game_state = "tile_game_1"
-      if (image_index == 0 and game_state == "tile_game_1") or (image_index == 3 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_5") or (image_index == 6 and game_state == "tile_game_12") or (image_index == 8 and game_state == "tile_game_10"):  # Clicked on 0.jpg
+      if (image_index == 0 and game_state == "tile_game_1") or (image_index == 3 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_5") or (image_index == 6 and game_state == "tile_game_12") or (image_index == 8 and game_state == "tile_game_10") or (image_index == 5 and game_state == "tile_game_9"):  # Clicked on 0.jpg
         game_state = "tile_game_2"
       elif (image_index == 7 and game_state == "tile_game_1") or (image_index == 8 and game_state == "tile_game_5") or (image_index == 6 and game_state == "tile_game_6") or (image_index == 5 and game_state == "tile_game_3") or (image_index == 3 and game_state == "tile_game_18"):  # Clicked on 0.jpg
         game_state = "tile_game_4"
-      elif (image_index == 3 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_2") or (image_index == 6 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_3") or (image_index == 0 and game_state == "tile_game_4") or (image_index == 1 and game_state == "tile_game_18"):  # Clicked on 0.jpg
+      elif (image_index == 3 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_2") or (image_index == 6 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_3") or (image_index == 0 and game_state == "tile_game_4") or (image_index == 1 and game_state == "tile_game_18") or (image_index == 8 and game_state == "tile_game_9") or (image_index == 2 and game_state == "tile_game_16"):  # Clicked on 0.jpg
         game_state = "tile_game_5"
       elif (image_index == 5 and game_state == "tile_game_1") or (image_index == 8 and game_state == "tile_game_8") or (image_index == 7 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_4") or (image_index == 6 and game_state == "tile_game_14") or (image_index == 0 and game_state == "tile_game_17") or (image_index == 3 and game_state == "tile_game_15"):  # Clicked on 0.jpg
         game_state = "tile_game_6"
@@ -296,15 +309,15 @@ while running:
         game_state = "tile_game_7"
       elif (image_index == 1 and game_state == "tile_game_1") or (image_index == 5 and game_state == "tile_game_2") or (image_index == 3 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_5") or (image_index == 0 and game_state == "tile_game_6") or (image_index == 7 and game_state == "tile_game_12"):  # Clicked on 0.jpg
         game_state = "tile_game_8"
-      elif (image_index == 6 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_5") or (image_index == 3 and game_state == "tile_game_4"):
+    elif (image_index == 6 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_5") or (image_index == 3 and game_state == "tile_game_4") or (image_index == 5 and game_state == "tile_game_16"):
         game_state = "tile_game_3"
       elif (image_index == 8 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_6") or (image_index == 5 and game_state == "tile_game_4") or (image_index == 3 and game_state == "tile_game_17") or (image_index == 6 and game_state == "tile_game_15"):
         game_state = "tile_game_18"
       elif (image_index == 3 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_5") or (image_index == 7 and game_state == "tile_game_10"):  # Clicked on 0.jpg
         game_state = "tile_game_9"
-      elif (image_index == 0 and game_state == "tile_game_2"):  # Clicked on 0.jpg
+      elif (image_index == 0 and game_state == "tile_game_2") or (image_index == 1 and game_state == "tile_game_9"):  # Clicked on 0.jpg
         game_state = "tile_game_10"
-      elif (image_index == 1 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_8"):  # Clicked on 0.jpg
+      elif (image_index == 1 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_8") or (image_index == 2 and game_state == "tile_game_9"):  # Clicked on 0.jpg
         game_state = "tile_game_11"
       elif (image_index == 2 and game_state == "tile_game_2") or (image_index == 1 and game_state == "tile_game_8") or (image_index == 0 and game_state == "tile_game_7") or (image_index == 5 and game_state == "tile_game_5"):  # Clicked on 0.jpg
         game_state = "tile_game_12"
@@ -320,6 +333,8 @@ while running:
         game_state = "tile_game_16"
       elif (image_index == 8 and game_state == "tile_game_6") or (image_index == 5 and game_state == "tile_game_18") or (image_index == 7 and game_state == "tile_game_15"):  # Clicked on 0.jpg
         game_state = "tile_game_17"
+      elif (image_index == 6 and game_state == "tile_game_9") or (image_index == 0 and game_state == "tile_game_16"):
+        game_state = "tile_game_19"
 
 
     if event.type == pygame.KEYDOWN:
@@ -334,6 +349,8 @@ while running:
   elif game_state == "tile_game_2":
         draw_grid(images_2)
   elif game_state == "tile_game_3":
+        draw_grid(images_1)
+  elif game_state == "tile_game_18":
         draw_grid(images_1)
   elif game_state == "tile_game_4":
         draw_grid(images_3)
@@ -363,6 +380,8 @@ while running:
         draw_grid(images_15)
   elif game_state == "tile_game_17":
         draw_grid(images_16)
+  elif game_state == "tile_game_19":
+        draw_grid(images_17)
 
   pygame.display.flip()
 
