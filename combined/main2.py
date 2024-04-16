@@ -1,6 +1,9 @@
 import pygame
 import sys
 import time
+import subprocess
+import tkinter as tk
+from tkinter import messagebox
 
 # Initialize Pygame
 pygame.init()
@@ -30,6 +33,14 @@ WHITE = (255, 255, 255)
 BACKGROUND_COLOR = (250, 250, 250)
 
 game_state = "tile_game_1"
+
+health = 100
+my_font = pygame.font.SysFont('Algerian', 20)  # Choose a font and size
+
+def restart_game():
+    subprocess.Popen(['python', 'main1.py'])
+    pygame.quit()
+    sys.exit()
 
 # Function to load and scale images
 def load_and_scale_image(filename):
@@ -270,7 +281,6 @@ images_17 = [
   load_and_scale_image("18.jpg")
 ]
 
-
 def draw_grid(images):
   for x in range(0, WINDOW_WIDTH, int(BLOCK_WIDTH)):
     for y in range(0, WINDOW_HEIGHT, int(BLOCK_HEIGHT)):
@@ -281,6 +291,16 @@ def draw_grid(images):
       image_index = (y // BLOCK_HEIGHT) * 3 + (x // BLOCK_WIDTH)
       SCREEN.blit(images[image_index], (x, y)) # Display the image
 
+      # Text Rendering for the Central Image
+      if image_index == 4:  # Always assuming '4.jpg' is at index 4
+            # Scaling the text
+            original_font_size = 20  # Example size - adjust as needed
+            new_font_size = int(original_font_size * 1.71)
+            scaled_font = pygame.font.SysFont(None, new_font_size)  # Use a default system font
+            health_text = scaled_font.render(f"HEALTH: {health}", True, WHITE)
+
+            text_rect = health_text.get_rect(center=(x + BLOCK_WIDTH//2, y + BLOCK_HEIGHT//2))
+            SCREEN.blit(health_text, text_rect)
 
 def mouse_pos():
   # Takes the mouse position and, if over a tile, returns the tile index relative to the board list
@@ -343,6 +363,14 @@ while running:
         game_state = "tile_game_17"
       elif (image_index == 6 and game_state == "tile_game_9") or (image_index == 0 and game_state == "tile_game_16"):
         game_state = "tile_game_19"
+       # Update health
+      health -= 10
+      if health <= 0:
+          root = tk.Tk()
+          root.withdraw()  # Hide the main Tkinter window
+          result = messagebox.askquestion("You Lose!", "Play again?")
+          if result == 'yes':
+              restart_game()
 
 
     if event.type == pygame.KEYDOWN:
