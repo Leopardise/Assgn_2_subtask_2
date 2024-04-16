@@ -22,7 +22,7 @@ pygame.display.set_caption('Animal Rescue Quest')
 
 # Grid Settings
 BLOCK_WIDTH = 266
-BLOCK_HEIGHT = 266
+BLOCK_HEIGHT = 234
 
 # RGB Colors
 BLACK = (0, 0, 0)

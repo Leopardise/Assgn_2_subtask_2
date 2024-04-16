@@ -112,7 +112,7 @@ def gameplay(health):
 
         # Display health at the top of the screen
         chalkboard_font = pygame.font.SysFont("Algerian", 32)
-        display_text(f"Health: {health}%", chalkboard_font, (255, 255, 255), WINDOW_WIDTH // 2, 100)
+        display_text("Animal or bird? Pick your favorite!", chalkboard_font, (255, 255, 255), WINDOW_WIDTH // 2, 100)
 
         # Position the back button at approximately 10% down the screen
         draw_button(back_button_image, 20, 20)

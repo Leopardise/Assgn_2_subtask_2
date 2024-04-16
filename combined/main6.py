@@ -1,6 +1,7 @@
 import pygame
 import random
 import os
+import subprocess
 
 # Define some colors
 BLACK = (0, 0, 0)
@@ -16,21 +17,21 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Animal Rescue Quest")
 clock = pygame.time.Clock()
 
-# Load background image
+# Load images
 background_img = pygame.image.load("back_6.jpg")
-background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))  # Resize to screen size
-
-# Load hunter image
+background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
 hunter_img = pygame.image.load("hunter.jpg")
-hunter_img = pygame.transform.scale(hunter_img, (40, 40))  # Resize to 40x40 pixels
-
-# Load bonus image
+hunter_img = pygame.transform.scale(hunter_img, (40, 40))
 bonus_img = pygame.image.load("bonus.jpg")
-bonus_img = pygame.transform.scale(bonus_img, (40, 40))  # Resize to 40x40 pixels
-
-# Load player image
+bonus_img = pygame.transform.scale(bonus_img, (40, 40))
 player_img = pygame.image.load("bird.jpg")
-player_img = pygame.transform.scale(player_img, (40, 40))  # Resize player image
+player_img = pygame.transform.scale(player_img, (40, 40))
+back_button_img = pygame.image.load("back_button.png")
+back_button_img = pygame.transform.scale(back_button_img, (40, 40))
+continue_button_img = pygame.image.load("continue.jpg")
+continue_button_img = pygame.transform.scale(continue_button_img, (70, 50))
+replay_button_img = pygame.image.load("replay.jpg")
+replay_button_img = pygame.transform.scale(replay_button_img, (70, 50))
 
 
 # Define player class
@@ -103,11 +104,25 @@ running = True
 game_over = False
 while running:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.quit:
             running = False
+            pygame.quit()
+            sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and game_over:
                 reset_game()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if back_button_rect.collidepoint(pygame.mouse.get_pos()):
+                subprocess.Popen(['python', 'main5.py'])
+                pygame.quit()
+                running = False
+            elif game_over:  # Check if game over
+                if continue_button_rect.collidepoint(pygame.mouse.get_pos()):
+                    subprocess.Popen(['python', 'main9.py'])
+                    pygame.quit()
+                    running = False
+                elif replay_button_rect.collidepoint(pygame.mouse.get_pos()):
+                    reset_game()
 
     # Check for collision with obstacles during game
     if not game_over:
@@ -119,6 +134,9 @@ while running:
         bonus_collisions = pygame.sprite.spritecollide(player, bonuses, True)
         for bonus in bonus_collisions:
             points += 10  # Increase points if player collides with bonus
+
+    # Draw game elements
+    screen.blit(background_img, (0, 0))  # Draw background
 
     # Move obstacles and create new ones
     if not game_over:
@@ -140,8 +158,6 @@ while running:
                 new_bonus = Bonus()
                 bonuses.add(new_bonus)
 
-    # Draw game elements
-    screen.blit(background_img, (0, 0))  # Draw background
     if not game_over:
         obstacles.draw(screen)
         player.update()
@@ -154,15 +170,28 @@ while running:
         text_rect = text.get_rect(topright=(WIDTH - 10, 10))
         screen.blit(text, text_rect)
 
-    else:
+    else:  # Game over screen
         font = pygame.font.Font(None, 36)
-        text = font.render("Game Over! Press Space to Restart", True, WHITE)
-        text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+        text = font.render("Game Over! Choose 'Continue' to help injured Donut else choose 'Replay'", True, WHITE)
+        text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))  # Adjusted position
         screen.blit(text, text_rect)
+
+        # Create button rectangles
+        continue_button_rect = continue_button_img.get_rect(center=(WIDTH // 2 - 100, HEIGHT // 2 + 50))
+        replay_button_rect = replay_button_img.get_rect(center=(WIDTH // 2 + 100, HEIGHT // 2 + 50))
+
+        # Draw buttons
+        screen.blit(continue_button_img, continue_button_rect)
+        screen.blit(replay_button_img, replay_button_rect)
+
+
+    # Create back button rect
+    back_button_rect = back_button_img.get_rect(topleft=(10, 10))
+    screen.blit(back_button_img, back_button_rect)
 
     # Update the display
     pygame.display.flip()
     clock.tick(60)  # Set FPS
 
-# Quit Pygame
+# continue Pygame
 pygame.quit()
