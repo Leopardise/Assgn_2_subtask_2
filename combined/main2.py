@@ -5,16 +5,24 @@ import time
 # Initialize Pygame
 pygame.init()
 
+pygame.mixer.init()  # Initialize the mixer
+pygame.mixer.music.load('background_music.mp3')  # Load your background music file
+
+pygame.mixer.music.play(-1)  # Play the music on loop (-1 means infinite loop)
+
+pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
+
+
 # Resolution & Display
 WINDOW_WIDTH = 798
-WINDOW_HEIGHT = 600
+WINDOW_HEIGHT = 702
 
 SCREEN = pygame.display.set_mode([WINDOW_WIDTH, WINDOW_HEIGHT])
 pygame.display.set_caption('Animal Rescue Quest')
 
 # Grid Settings
 BLOCK_WIDTH = 266
-BLOCK_HEIGHT = 200
+BLOCK_HEIGHT = 266
 
 # RGB Colors
 BLACK = (0, 0, 0)
@@ -309,7 +317,7 @@ while running:
         game_state = "tile_game_7"
       elif (image_index == 1 and game_state == "tile_game_1") or (image_index == 5 and game_state == "tile_game_2") or (image_index == 3 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_5") or (image_index == 0 and game_state == "tile_game_6") or (image_index == 7 and game_state == "tile_game_12"):  # Clicked on 0.jpg
         game_state = "tile_game_8"
-    elif (image_index == 6 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_5") or (image_index == 3 and game_state == "tile_game_4") or (image_index == 5 and game_state == "tile_game_16"):
+      elif (image_index == 6 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_5") or (image_index == 3 and game_state == "tile_game_4") or (image_index == 5 and game_state == "tile_game_16"):
         game_state = "tile_game_3"
       elif (image_index == 8 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_6") or (image_index == 5 and game_state == "tile_game_4") or (image_index == 3 and game_state == "tile_game_17") or (image_index == 6 and game_state == "tile_game_15"):
         game_state = "tile_game_18"

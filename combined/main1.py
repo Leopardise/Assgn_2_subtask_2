@@ -16,7 +16,7 @@ pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
 
 
 # Set up the display
-WINDOW_WIDTH, WINDOW_HEIGHT = 800, 600
+WINDOW_WIDTH, WINDOW_HEIGHT = 798, 702
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Animal Rescue Quest")
 
@@ -175,7 +175,7 @@ def gameplay(health):
 
 
 def display_injured_animal_window():
-    injured_window_width, injured_window_height = 800, 600
+    injured_window_width, injured_window_height = 798, 702
     injured_window = pygame.display.set_mode((injured_window_width, injured_window_height))
     pygame.display.set_caption("Injured Animal")
 
@@ -219,11 +219,11 @@ def display_injured_animal_window():
                     # Transition to main2.py
                     pygame.quit()
                     # main2  # Call the main function from main2.py
-                    subprocess.Popen(["python", "main2.py"])
+                    subprocess.Popen(["python", "main3.py"])
                     return
 
 def display_injured_bird_window():
-    injured_window_width, injured_window_height = 800, 600
+    injured_window_width, injured_window_height = 798, 702
     injured_window = pygame.display.set_mode((injured_window_width, injured_window_height))
     pygame.display.set_caption("Injured Bird")
 
@@ -267,7 +267,7 @@ def display_injured_bird_window():
                     # Transition to main2.py
                     pygame.quit()
                     # main2  # Call the main function from main2.py
-                    subprocess.Popen(["python", "main2.py"])
+                    subprocess.Popen(["python", "main3.py"])
                     return
 
 
@@ -283,7 +283,7 @@ def play_video():
         # Fit the video to the window size
         scaled_clip = clip.resize((WINDOW_WIDTH, WINDOW_HEIGHT))
         # Get frames of the video
-        frames = scaled_clip.iter_frames(fps=1500)  # Adjusted frame rate (decreased by 20%)
+        frames = scaled_clip.iter_frames(fps=200)  # Adjusted frame rate (decreased by 20%)
         # Loop through frames and display them on the video screen
 
 
