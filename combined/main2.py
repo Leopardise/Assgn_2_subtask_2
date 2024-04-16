@@ -249,6 +249,7 @@ images_16 = [
   load_and_scale_image("u.jpg")
 ]
 
+
 def draw_grid(images):
   for x in range(0, WINDOW_WIDTH, int(BLOCK_WIDTH)):
     for y in range(0, WINDOW_HEIGHT, int(BLOCK_HEIGHT)):
@@ -283,41 +284,41 @@ while running:
       image_index = y * 3 + x
       # if image_index == 0 and game_state == "tile_game_3":  # Clicked on 0.jpg
       #   game_state = "tile_game_1"
-      if (image_index == 0 and game_state == "tile_game_1") or (image_index == 3 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_5"):  # Clicked on 0.jpg
+      if (image_index == 0 and game_state == "tile_game_1") or (image_index == 3 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_5") or (image_index == 6 and game_state == "tile_game_12") or (image_index == 8 and game_state == "tile_game_10"):  # Clicked on 0.jpg
         game_state = "tile_game_2"
-      elif (image_index == 7 and game_state == "tile_game_1") or (image_index == 8 and game_state == "tile_game_5") or (image_index == 6 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+      elif (image_index == 7 and game_state == "tile_game_1") or (image_index == 8 and game_state == "tile_game_5") or (image_index == 6 and game_state == "tile_game_6") or (image_index == 5 and game_state == "tile_game_3") or (image_index == 3 and game_state == "tile_game_18"):  # Clicked on 0.jpg
         game_state = "tile_game_4"
-      elif (image_index == 3 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_2") or (image_index == 6 and game_state == "tile_game_8"):  # Clicked on 0.jpg
+      elif (image_index == 3 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_2") or (image_index == 6 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_3") or (image_index == 0 and game_state == "tile_game_4") or (image_index == 1 and game_state == "tile_game_18"):  # Clicked on 0.jpg
         game_state = "tile_game_5"
-      elif (image_index == 5 and game_state == "tile_game_1") or (image_index == 8 and game_state == "tile_game_8") or (image_index == 7 and game_state == "tile_game_7"):  # Clicked on 0.jpg
+      elif (image_index == 5 and game_state == "tile_game_1") or (image_index == 8 and game_state == "tile_game_8") or (image_index == 7 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_4") or (image_index == 6 and game_state == "tile_game_14") or (image_index == 0 and game_state == "tile_game_17") or (image_index == 3 and game_state == "tile_game_15"):  # Clicked on 0.jpg
         game_state = "tile_game_6"
-      elif (image_index == 2 and game_state == "tile_game_1") or (image_index == 5 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+      elif (image_index == 2 and game_state == "tile_game_1") or (image_index == 5 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_6") or (image_index == 6 and game_state == "tile_game_13") or (image_index == 3 and game_state == "tile_game_14") or (image_index == 0 and game_state == "tile_game_15") or (image_index == 8 and game_state == "tile_game_12"):  # Clicked on 0.jpg
         game_state = "tile_game_7"
-      elif (image_index == 1 and game_state == "tile_game_1") or (image_index == 5 and game_state == "tile_game_2") or (image_index == 3 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_5") or (image_index == 0 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+      elif (image_index == 1 and game_state == "tile_game_1") or (image_index == 5 and game_state == "tile_game_2") or (image_index == 3 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_5") or (image_index == 0 and game_state == "tile_game_6") or (image_index == 7 and game_state == "tile_game_12"):  # Clicked on 0.jpg
         game_state = "tile_game_8"
-      elif (image_index == 6 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_5"):
+      elif (image_index == 6 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_5") or (image_index == 3 and game_state == "tile_game_4"):
         game_state = "tile_game_3"
-    elif (image_index == 8 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_6"):
-        game_state = "tile_game_3"
-      elif (image_index == 3 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_5"):  # Clicked on 0.jpg
+      elif (image_index == 8 and game_state == "tile_game_1") or (image_index == 7 and game_state == "tile_game_6") or (image_index == 5 and game_state == "tile_game_4") or (image_index == 3 and game_state == "tile_game_17") or (image_index == 6 and game_state == "tile_game_15"):
+        game_state = "tile_game_18"
+      elif (image_index == 3 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_5") or (image_index == 7 and game_state == "tile_game_10"):  # Clicked on 0.jpg
         game_state = "tile_game_9"
-      elif image_index == 0 and game_state == "tile_game_2":  # Clicked on 0.jpg
+      elif (image_index == 0 and game_state == "tile_game_2"):  # Clicked on 0.jpg
         game_state = "tile_game_10"
       elif (image_index == 1 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_8"):  # Clicked on 0.jpg
         game_state = "tile_game_11"
       elif (image_index == 2 and game_state == "tile_game_2") or (image_index == 1 and game_state == "tile_game_8") or (image_index == 0 and game_state == "tile_game_7") or (image_index == 5 and game_state == "tile_game_5"):  # Clicked on 0.jpg
         game_state = "tile_game_12"
-      elif (image_index == 8 and game_state == "tile_game_2") or (image_index == 7 and game_state == "tile_game_8") or (image_index == 6 and game_state == "tile_game_7") or (image_index == 3 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+      elif (image_index == 8 and game_state == "tile_game_2") or (image_index == 7 and game_state == "tile_game_8") or (image_index == 6 and game_state == "tile_game_7") or (image_index == 3 and game_state == "tile_game_6") or (image_index == 2 and game_state == "tile_game_3") or (image_index == 1 and game_state == "tile_game_4") or (image_index == 0 and game_state == "tile_game_18"):  # Clicked on 0.jpg
         game_state = "tile_game_1"
-      elif (image_index == 2 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+      elif (image_index == 2 and game_state == "tile_game_7") or (image_index == 1 and game_state == "tile_game_14"):  # Clicked on 0.jpg
         game_state = "tile_game_13"
-      elif image_index == 5 and game_state == "tile_game_7":  # Clicked on 0.jpg
+      elif (image_index == 5 and game_state == "tile_game_7") or (image_index == 2 and game_state == "tile_game_6") or (image_index == 7 and game_state == "tile_game_13") or (image_index == 1 and game_state == "tile_game_15"):  # Clicked on 0.jpg
         game_state = "tile_game_14"
-      elif (image_index == 8 and game_state == "tile_game_7") or (image_index == 5 and game_state == "tile_game_6"):  # Clicked on 0.jpg
+      elif (image_index == 8 and game_state == "tile_game_7") or (image_index == 5 and game_state == "tile_game_6") or (image_index == 2 and game_state == "tile_game_18") or (image_index == 7 and game_state == "tile_game_14") or (image_index == 1 and game_state == "tile_game_17"):  # Clicked on 0.jpg
         game_state = "tile_game_15"
-      elif image_index == 6 and game_state == "tile_game_5":  # Clicked on 0.jpg
+      elif (image_index == 6 and game_state == "tile_game_5") or (image_index == 3 and game_state == "tile_game_3"):  # Clicked on 0.jpg
         game_state = "tile_game_16"
-      elif image_index == 8 and game_state == "tile_game_6":  # Clicked on 0.jpg
+      elif (image_index == 8 and game_state == "tile_game_6") or (image_index == 5 and game_state == "tile_game_18") or (image_index == 7 and game_state == "tile_game_15"):  # Clicked on 0.jpg
         game_state = "tile_game_17"
 
 
