@@ -13,11 +13,11 @@ HEIGHT = 702
 # Initialize Pygame
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Animal Resque Quest")
+pygame.display.set_caption("Animal Rescue Quest")
 clock = pygame.time.Clock()
 
 # Load background image
-background_img = pygame.image.load("back_3.jpg")
+background_img = pygame.image.load("back_6.jpg")
 background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))  # Resize to screen size
 
 # Load hunter image
@@ -29,7 +29,7 @@ bonus_img = pygame.image.load("bonus.jpg")
 bonus_img = pygame.transform.scale(bonus_img, (40, 40))  # Resize to 40x40 pixels
 
 # Load player image
-player_img = pygame.image.load("character.jpg")
+player_img = pygame.image.load("bird.jpg")
 player_img = pygame.transform.scale(player_img, (40, 40))  # Resize player image
 
 
