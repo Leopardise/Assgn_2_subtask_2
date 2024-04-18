@@ -8,6 +8,13 @@ pygame.init()
 SCREEN_WIDTH = 798
 SCREEN_HEIGHT = 702
 
+pygame.mixer.init()  # Initialize the mixer
+pygame.mixer.music.load('background_music.mp3')  # Load your background music file
+
+pygame.mixer.music.play(-1)  # Play the music on loop (-1 means infinite loop)
+
+pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
+
 # Load images
 injured_bird_image = pygame.image.load("injured_bird.png")  # Replace with your image path
 back_button_image = pygame.image.load("back_button.png")
@@ -67,7 +74,7 @@ def display_injured_bird_window():
                     injured_window_width - button_size - 20,
                     injured_window_height - button_size - 20,
                     button_size, button_size), pygame.mouse.get_pos()):
-                    subprocess.Popen(["python", "main3.py"])  # Transition to main3.py
+                    subprocess.Popen(["python", "main9.py"])  # Transition to main3.py
                     return
 
 # Main function (add more setup if needed)

@@ -19,7 +19,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Animal Rescue Quest")
 
 # Load background image
-background = pygame.image.load("back_7.jpg").convert()
+background = pygame.image.load("kalpa.jpg").convert()
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 # Load button images
@@ -48,7 +48,7 @@ while running:
                     subprocess.Popen(["python", "main1.py"])
                     running = False
                 elif play_button_rect.collidepoint(mouse_pos):
-                    subprocess.Popen(["python", "main10.py"])
+                    subprocess.Popen(["python", "maze.py"])
                     running = False
 
     # Draw background and buttons

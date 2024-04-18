@@ -207,7 +207,7 @@ images_1 = [
 
 # Load Images for the second window
 images_8 = [
-    load_and_scale_image("24.jpg"),
+    load_and_scale_image("24*.jpg"),
     load_and_scale_image("10.jpg"),
     load_and_scale_image("12.jpg"),
     load_and_scale_image("u.jpg"),
@@ -222,8 +222,8 @@ images_8 = [
 images_9 = [
     load_and_scale_image("u.jpg"),
     load_and_scale_image("26.jpg"),
-    load_and_scale_image("27.jpg"),
-    load_and_scale_image("24.jpg"),
+    load_and_scale_image("27*.jpg"),
+    load_and_scale_image("24*.jpg"),
     load_and_scale_image("4.jpg"),
     load_and_scale_image("12.jpg"),
     load_and_scale_image("u.jpg"),
@@ -234,7 +234,7 @@ images_9 = [
 # Load Images
 images_10 = [
   load_and_scale_image("26.jpg"),
-  load_and_scale_image("27.jpg"),
+  load_and_scale_image("27*.jpg"),
   load_and_scale_image("m.jpg"),
   load_and_scale_image("10.jpg"),
   load_and_scale_image("4.jpg"),
@@ -246,7 +246,7 @@ images_10 = [
 
 # Load Images
 images_11 = [
-  load_and_scale_image("27.jpg"),
+  load_and_scale_image("27*.jpg"),
   load_and_scale_image("m.jpg"),
   load_and_scale_image("u.jpg"),
   load_and_scale_image("12.jpg"),
@@ -500,24 +500,24 @@ while running:
         draw_grid(images_17)
   elif game_state == "tile_game_20":
     health += 30
-    display_message_box("Hydration +10! Bambi trusts you more!")
+    display_message_box("Hydration +10! Donut trusts you more!")
     game_state = prev  # Adjust as necessary for your game logic
   elif game_state == "tile_game_11":
     health += 30
-    display_message_box("Hydration +10! Bambi trusts you more!")
+    display_message_box("Hydration +10! Donut trusts you more!")
     game_state = prev
   elif game_state == "tile_game_21":
     health += 30
-    display_message_box("Hydration +10! Bambi trusts you more!")
+    display_message_box("Hydration +10! Donut trusts you more!")
     game_state = prev
   elif game_state == "tile_game_22":
     health += 30
-    display_message_box("Nutrition +10! Bambi trusts you more!")
+    display_message_box("Nutrition +10! Donut trusts you more!")
     game_state = prev
   elif game_state == "tile_game_23":
-    display_message_box("Disaster! Bambi's been caught by a poacher. \n                    Wanna try again?", True)
+    display_message_box("Disaster! Donut's been caught by a poacher. \n                    Wanna try again?", True)
   elif game_state == "tile_game_24":
-    display_message_box("Oh no! Bambi stumbles down the cliff... \n                    Wanna try again?", True)
+    display_message_box("Oh no! Donut has been injured by Mr.Eagle.. \n                    Wanna try again?", True)
   elif (game_state == "tile_game_25"):
     subprocess.Popen(["python", "main11.py"])
     running = False

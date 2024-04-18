@@ -3,6 +3,9 @@ import sys
 from moviepy.editor import VideoFileClip
 from moviepy.editor import TextClip
 import subprocess
+from moviepy.editor import VideoFileClip
+import numpy as np
+
 # import main2
 
 pygame.init()
@@ -13,6 +16,7 @@ pygame.mixer.music.load('background_music.mp3')  # Load your background music fi
 pygame.mixer.music.play(-1)  # Play the music on loop (-1 means infinite loop)
 
 pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
+
 
 
 # Set up the display
@@ -75,6 +79,7 @@ def is_button_clicked(button_rect, pos):
 
 # Main menu
 def main_menu():
+    pygame.init()
     blink = False
     blink_timer = pygame.time.get_ticks()
     while True:
@@ -163,51 +168,36 @@ def gameplay(health):
 
                 elif is_button_clicked(pygame.Rect(WINDOW_WIDTH - watch_video_button_size - 20, WINDOW_HEIGHT - watch_video_button_size - 20, watch_video_button_size, watch_video_button_size), pygame.mouse.get_pos()):
                      # Handle click action for watch video button
-                     play_video()
+                     # Usage
+                     play_video_pygame('watch_2.mp4', screen, back_button_image)
 
 
 
-def play_video():
-    # Create a separate display surface for video playback
-    video_screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-    pygame.display.set_caption("Animal Rescue Quest")  # Set window title
-    clip = VideoFileClip("watch_2.mp4")
-    audio_clip = clip.audio
+def play_video_pygame(video_path, screen, back_button_image):
+    # Load video
+    clip = VideoFileClip(video_path)
+    video = clip.resize(newsize=(screen.get_width(), screen.get_height()))  # Resize video to screen size
 
-    try:
-        # Fit the video to the window size
-        scaled_clip = clip.resize((WINDOW_WIDTH, WINDOW_HEIGHT))
-        # Get frames of the video
-        frames = scaled_clip.iter_frames(fps=200)  # Adjusted frame rate (decreased by 20%)
-        # Loop through frames and display them on the video screen
+    # Prepare the back button
+    back_button_rect = back_button_image.get_rect(topleft=(20, 20))
 
+    # Video playback
+    for frame in video.iter_frames(fps=150, dtype='uint8'):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button_rect.collidepoint(event.pos):
+                    return  # Exit video playback early
 
-        back_button_size = min(WINDOW_WIDTH, WINDOW_HEIGHT) // 10
-        back_button_image_scaled = pygame.transform.scale(back_button_image, (back_button_size, back_button_size))
+        # Convert the video frame to a Pygame surface
+        frame_surface = pygame.surfarray.make_surface(frame.swapaxes(0, 1))
+        screen.blit(frame_surface, (0, 0))
+        screen.blit(back_button_image, back_button_rect.topleft)
+        pygame.display.flip()
 
-
-        for frame in frames:
-            # Convert the frame to a format Pygame can use
-            frame_surface = pygame.image.frombuffer(frame, (WINDOW_WIDTH, WINDOW_HEIGHT), 'RGB')
-            video_screen.blit(frame_surface, (0, 0))
-
-            video_screen.blit(back_button_image_scaled, (20,20))
-
-            # Update the display
-            pygame.display.flip()
-            # Check for quit event
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    back_button_rect = pygame.Rect(20, 20, back_button_size, back_button_size)
-                    if is_button_clicked(back_button_rect, pygame.mouse.get_pos()):
-                        return
-    finally:
-        pass
-
-
+    clip.close()
 
 # Run the game
 if __name__ == "__main__":

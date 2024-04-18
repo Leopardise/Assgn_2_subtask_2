@@ -11,6 +11,15 @@ WHITE = (255, 255, 255)
 WIDTH = 798
 HEIGHT = 702
 
+
+pygame.mixer.init()  # Initialize the mixer
+pygame.mixer.music.load('violent.mp3')  # Load your background music file
+
+pygame.mixer.music.play(-1)  # Play the music on loop (-1 means infinite loop)
+
+pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
+
+
 # Initialize Pygame
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -116,7 +125,7 @@ while running:
                 running = False
             elif game_over:  # Check if game over
                 if continue_button_rect.collidepoint(pygame.mouse.get_pos()):
-                    subprocess.Popen(['python', 'main3.py'])
+                    subprocess.Popen(['python', 'main7.py'])
                     pygame.quit()
                     running = False
                 elif replay_button_rect.collidepoint(pygame.mouse.get_pos()):

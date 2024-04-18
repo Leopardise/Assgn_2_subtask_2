@@ -12,6 +12,14 @@ SCREEN_HEIGHT = 702
 CELL_SIZE = 40  # Size of each cell in the maze
 
 
+pygame.mixer.init()  # Initialize the mixer
+pygame.mixer.music.load('city.mp3')  # Load your background music file
+
+pygame.mixer.music.play(-1)  # Play the music on loop (-1 means infinite loop)
+
+pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
+
+
 
 # Calculate the number of rows and columns based on screen size and cell size
 NUM_COLS = SCREEN_WIDTH // CELL_SIZE

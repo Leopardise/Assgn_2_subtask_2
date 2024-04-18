@@ -8,6 +8,14 @@ pygame.init()
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
+pygame.mixer.init()  # Initialize the mixer
+pygame.mixer.music.load('background_music.mp3')  # Load your background music file
+
+pygame.mixer.music.play(-1)  # Play the music on loop (-1 means infinite loop)
+
+pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
+
+
 # Load images
 injured_animal_image = pygame.image.load("injured_animal.png")  # Replace with your image path
 back_button_image = pygame.image.load("back_button.png")
