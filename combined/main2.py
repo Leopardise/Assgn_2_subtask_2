@@ -44,7 +44,7 @@ def restart_game():
     pygame.quit()
     sys.exit()
 
-def display_message_box(message):
+def display_message_box(message, show_yes_no=False):
     # Dimensions for the message box
     box_width, box_height = 300, 200
     box_x, box_y = (WINDOW_WIDTH - box_width) // 2, (WINDOW_HEIGHT - box_height) // 2
@@ -55,19 +55,26 @@ def display_message_box(message):
 
     # Display the message
     text_surf = my_font.render(message, True, BLACK)
-    text_rect = text_surf.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 - 30))
+    text_rect = text_surf.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 - 50))
     SCREEN.blit(text_surf, text_rect)
 
-    # Display Yes and No buttons
-    yes_button = pygame.Rect(box_x + 50, box_y + 120, 80, 40)
-    no_button = pygame.Rect(box_x + 170, box_y + 120, 80, 40)
-    pygame.draw.rect(SCREEN, GREEN, yes_button)
-    pygame.draw.rect(SCREEN, RED, no_button)
+    if show_yes_no:
+        # Display Yes and No buttons, centered and equally spaced
+        yes_button = pygame.Rect(box_x + 50, box_y + 130, 80, 40)
+        no_button = pygame.Rect(box_x + 170, box_y + 130, 80, 40)
+        pygame.draw.rect(SCREEN, GREEN, yes_button)  # Yes button green
+        pygame.draw.rect(SCREEN, RED, no_button)    # No button red
 
-    yes_text = my_font.render('Yes', True, WHITE)
-    no_text = my_font.render('No', True, WHITE)
-    SCREEN.blit(yes_text, (yes_button.x + 20, yes_button.y + 10))
-    SCREEN.blit(no_text, (no_button.x + 20, no_button.y + 10))
+        yes_text = my_font.render('Yes', True, WHITE)
+        no_text = my_font.render('No', True, WHITE)
+        SCREEN.blit(yes_text, (yes_button.x + 20, yes_button.y + 10))
+        SCREEN.blit(no_text, (no_button.x + 20, no_button.y + 10))
+    else:
+        # Define single OK button if no yes/no buttons needed
+        ok_button = pygame.Rect(box_x + 110, box_y + 130, 80, 40)
+        pygame.draw.rect(SCREEN, GREEN, ok_button)
+        ok_text = my_font.render('OK', True, WHITE)
+        SCREEN.blit(ok_text, (ok_button.x + 20, ok_button.y + 10))
 
     pygame.display.flip()
 
@@ -75,14 +82,19 @@ def display_message_box(message):
     while True:
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if yes_button.collidepoint(event.pos):
-                    restart_game()
-                elif no_button.collidepoint(event.pos):
-                    pygame.quit()
-                    sys.exit()
+                if show_yes_no:
+                    if yes_button.collidepoint(event.pos):
+                        restart_game()
+                    elif no_button.collidepoint(event.pos):
+                        pygame.quit()
+                        sys.exit()
+                else:
+                    if ok_button.collidepoint(event.pos):
+                        return  # Just return if OK button
             elif event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
 
 # Function to load and scale images
 def load_and_scale_image(filename):
@@ -355,6 +367,7 @@ def mouse_pos():
 running = True
 caution_screen = False
 image_index = -1
+prev = ""
 
 while running:
   for event in pygame.event.get():
@@ -387,7 +400,8 @@ while running:
         game_state = "tile_game_9"
       elif (image_index == 0 and game_state == "tile_game_2") or (image_index == 1 and game_state == "tile_game_9"):  # Clicked on 0.jpg
         game_state = "tile_game_10"
-      elif (image_index == 1 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_8") or (image_index == 2 and game_state == "tile_game_9"):  # Clicked on 0.jpg
+      elif (image_index == 1 and game_state == "tile_game_2") or (image_index == 0 and game_state == "tile_game_8") or (image_index == 2 and game_state == "tile_game_9") or(image_index == 3 and game_state == "tile_game_12") or (image_index == 5 and game_state == "tile_game_10"):  # Clicked on 0.jpg
+        prev = game_state
         game_state = "tile_game_11"
       elif (image_index == 2 and game_state == "tile_game_2") or (image_index == 1 and game_state == "tile_game_8") or (image_index == 0 and game_state == "tile_game_7") or (image_index == 5 and game_state == "tile_game_5"):  # Clicked on 0.jpg
         game_state = "tile_game_12"
@@ -405,10 +419,19 @@ while running:
         game_state = "tile_game_17"
       elif (image_index == 6 and game_state == "tile_game_9") or (image_index == 0 and game_state == "tile_game_16"):
         game_state = "tile_game_19"
+      elif(image_index == 7 and game_state == "tile_game_9") or (image_index == 6 and game_state == "tile_game_2") or (image_index == 3 and game_state == "tile_game_5") or (image_index == 5 and game_state == "tile_game_19") or (image_index == 1 and game_state == "tile_game_16") or (image_index == 0 and game_state == "tile_game_3"):
+        prev = game_state
+        game_state = "tile_game_20"
+      elif(image_index == 5 and game_state == "tile_game_12") or (image_index == 2 and game_state == "tile_game_8") or (image_index == 1 and game_state == "tile_game_7") or (image_index == 0 and game_state == "tile_game_14") or (image_index == 3 and game_state == "tile_game_13"):
+        prev = game_state
+        game_state = "tile_game_21"
+      elif(image_index == 0 and game_state == "tile_game_12") or (image_index == 1 and game_state == "tile_game_11") or (image_index == 2 and game_state == "tile_game_10"):
+        prev = game_state
+        game_state = "tile_game_22"
        # Update health
       health -= 10
       if health <= 0:
-          display_message_box("You Lose! Play again?")
+          display_message_box("You Lose! Play again?", True)
 
 
     if event.type == pygame.KEYDOWN:
@@ -440,8 +463,6 @@ while running:
         draw_grid(images_8)
   elif game_state == "tile_game_10":
         draw_grid(images_9)
-  elif game_state == "tile_game_11":
-        draw_grid(images_10)
   elif game_state == "tile_game_12":
         draw_grid(images_11)
   elif game_state == "tile_game_13":
@@ -456,6 +477,22 @@ while running:
         draw_grid(images_16)
   elif game_state == "tile_game_19":
         draw_grid(images_17)
+  elif game_state == "tile_game_20":
+    health += 30
+    display_message_box("Hydration +10! Bambi trusts you more!")
+    game_state = prev  # Adjust as necessary for your game logic
+  elif game_state == "tile_game_11":
+    health += 30
+    display_message_box("Hydration +10! Bambi trusts you more!")
+    game_state = prev
+  elif game_state == "tile_game_21":
+    health += 30
+    display_message_box("Hydration +10! Bambi trusts you more!")
+    game_state = prev
+  elif game_state == "tile_game_22":
+    health += 30
+    display_message_box("Nutrition +10! Bambi trusts you more!")
+    game_state = prev
 
   pygame.display.flip()
 
