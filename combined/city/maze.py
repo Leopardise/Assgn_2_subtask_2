@@ -113,6 +113,8 @@ def generate_maze():
 def draw_maze(screen, font):
     # Draw the background image first
     screen.blit(background_img, (0, 0))
+    overlay_surface = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)
+    overlay_surface.fill((255, 255, 255, 128))
     global health
 
     # Draw maze cells
@@ -121,7 +123,7 @@ def draw_maze(screen, font):
             if maze[row][col] == 0:
                 pygame.draw.rect(screen, BLACK, (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE))
             elif maze[row][col] == 1:
-                pygame.draw.rect(screen, WHITE, (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+                screen.blit(overlay_surface, (col * CELL_SIZE, row * CELL_SIZE))
             elif maze[row][col] == 2:
                 screen.blit(person_img, (col * CELL_SIZE, row * CELL_SIZE))
             elif maze[row][col] == 3:
@@ -147,6 +149,10 @@ def move_player(dx, dy):
         maze[player_pos[0]][player_pos[1]] = 2  # Place player in the new position
 
 def display_message(screen, font, message):
+    
+    screen.blit(background_img, (0, 0))
+    
+    
     text_surface = font.render(message, True, BLACK)
     text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
     screen.blit(text_surface, text_rect)
