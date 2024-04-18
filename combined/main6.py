@@ -172,7 +172,7 @@ while running:
 
     else:  # Game over screen
         font = pygame.font.Font(None, 36)
-        text = font.render("Game Over! Choose 'Continue' to help injured Donut else choose 'Replay'", True, WHITE)
+        text = font.render("Choose 'Continue' to help injured Donut else choose 'Replay'", True, WHITE)
         text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))  # Adjusted position
         screen.blit(text, text_rect)
 

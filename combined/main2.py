@@ -1,12 +1,12 @@
+
 import pygame
 import sys
 import time
 import subprocess
-import tkinter as tk
-from tkinter import messagebox
 
 # Initialize Pygame
 pygame.init()
+pygame.font.init()  # Initialize font module
 
 pygame.mixer.init()  # Initialize the mixer
 pygame.mixer.music.load('background_music.mp3')  # Load your background music file
@@ -30,6 +30,8 @@ BLOCK_HEIGHT = 234
 # RGB Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
 BACKGROUND_COLOR = (250, 250, 250)
 
 game_state = "tile_game_1"
@@ -41,6 +43,46 @@ def restart_game():
     subprocess.Popen(['python', 'main1.py'])
     pygame.quit()
     sys.exit()
+
+def display_message_box(message):
+    # Dimensions for the message box
+    box_width, box_height = 300, 200
+    box_x, box_y = (WINDOW_WIDTH - box_width) // 2, (WINDOW_HEIGHT - box_height) // 2
+
+    # Draw the message box
+    pygame.draw.rect(SCREEN, WHITE, (box_x, box_y, box_width, box_height))
+    pygame.draw.rect(SCREEN, BLACK, (box_x, box_y, box_width, box_height), 3)
+
+    # Display the message
+    text_surf = my_font.render(message, True, BLACK)
+    text_rect = text_surf.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 - 30))
+    SCREEN.blit(text_surf, text_rect)
+
+    # Display Yes and No buttons
+    yes_button = pygame.Rect(box_x + 50, box_y + 120, 80, 40)
+    no_button = pygame.Rect(box_x + 170, box_y + 120, 80, 40)
+    pygame.draw.rect(SCREEN, GREEN, yes_button)
+    pygame.draw.rect(SCREEN, RED, no_button)
+
+    yes_text = my_font.render('Yes', True, WHITE)
+    no_text = my_font.render('No', True, WHITE)
+    SCREEN.blit(yes_text, (yes_button.x + 20, yes_button.y + 10))
+    SCREEN.blit(no_text, (no_button.x + 20, no_button.y + 10))
+
+    pygame.display.flip()
+
+    # Handle button clicks
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if yes_button.collidepoint(event.pos):
+                    restart_game()
+                elif no_button.collidepoint(event.pos):
+                    pygame.quit()
+                    sys.exit()
+            elif event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
 # Function to load and scale images
 def load_and_scale_image(filename):
@@ -366,11 +408,7 @@ while running:
        # Update health
       health -= 10
       if health <= 0:
-          root = tk.Tk()
-          root.withdraw()  # Hide the main Tkinter window
-          result = messagebox.askquestion("You Lose!", "Play again?")
-          if result == 'yes':
-              restart_game()
+          display_message_box("You Lose! Play again?")
 
 
     if event.type == pygame.KEYDOWN:
