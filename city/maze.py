@@ -7,9 +7,17 @@ import os
 pygame.init()
 
 # Constants
-SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 480
+SCREEN_WIDTH = 798
+SCREEN_HEIGHT = 702
 CELL_SIZE = 40  # Size of each cell in the maze
+
+
+pygame.mixer.init()  # Initialize the mixer
+pygame.mixer.music.load('city.mp3')  # Load your background music file
+
+pygame.mixer.music.play(-1)  # Play the music on loop (-1 means infinite loop)
+
+pygame.mixer.music.set_volume(.7)  # Set the volume to 50%
 
 # Calculate the number of rows and columns based on screen size and cell size
 NUM_COLS = SCREEN_WIDTH // CELL_SIZE
@@ -18,7 +26,8 @@ NUM_ROWS = SCREEN_HEIGHT // CELL_SIZE
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-
+RED = (255, 0, 0)
+GREEN = (0, 0, 255)
 # Load images directly from the current directory
 hospital_img = pygame.image.load('hospital.jpg')
 person_img = pygame.image.load('person.png')
@@ -60,6 +69,11 @@ class DisjointSet:
                 self.rank[root1] += 1
 
 def generate_maze():
+    global maze, player_pos, dest_pos, health
+    
+    # Reset the maze to its initial state
+    maze = [[0 for _ in range(NUM_COLS)] for _ in range(NUM_ROWS)]  # All cells are walls initially
+
     walls = []  # List to hold all walls in the maze
     disjoint_set = DisjointSet()
 
@@ -96,15 +110,18 @@ def generate_maze():
             disjoint_set.union(root1, root2)
 
     # Place player and destination
-    global player_pos, dest_pos
     player_pos = (0, 0)  # Starting position of the player
     dest_pos = (NUM_ROWS - 1, NUM_COLS - 1)  # Destination position
     maze[player_pos[0]][player_pos[1]] = 2  # Place player at start
     maze[dest_pos[0]][dest_pos[1]] = 3  # Place destination
+    health = 100  # Reset health
 
 def draw_maze(screen, font):
     # Draw the background image first
     screen.blit(background_img, (0, 0))
+    overlay_surface = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)
+    overlay_surface.fill((255, 255, 255, 128))
+    global health
 
     # Draw maze cells
     for row in range(NUM_ROWS):
@@ -112,15 +129,21 @@ def draw_maze(screen, font):
             if maze[row][col] == 0:
                 pygame.draw.rect(screen, BLACK, (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE))
             elif maze[row][col] == 1:
-                pygame.draw.rect(screen, WHITE, (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+                screen.blit(overlay_surface, (col * CELL_SIZE, row * CELL_SIZE))
             elif maze[row][col] == 2:
                 screen.blit(person_img, (col * CELL_SIZE, row * CELL_SIZE))
             elif maze[row][col] == 3:
                 screen.blit(hospital_img, (col * CELL_SIZE, row * CELL_SIZE))
+     # Draw health value on the screen corner
+    
+    health_text = font.render(f"Health: {health}", True, RED)
+    screen.blit(health_text, (10, 10))  # Display health at (10, 10) on the screen
+    
 
 def move_player(dx, dy):
-    global player_pos
-
+    global player_pos, health
+    
+    
     new_row = player_pos[0] + dy
     new_col = player_pos[1] + dx
 
@@ -128,15 +151,20 @@ def move_player(dx, dy):
         # Move player to the new position
         maze[player_pos[0]][player_pos[1]] = 1  # Clear current player position
         player_pos = (new_row, new_col)
+        health -= 3
         maze[player_pos[0]][player_pos[1]] = 2  # Place player in the new position
 
 def display_message(screen, font, message):
+    
+    screen.blit(background_img, (0, 0))
+    
+    
     text_surface = font.render(message, True, BLACK)
     text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
     screen.blit(text_surface, text_rect)
 
 def main():
-    global player_pos
+    global player_pos, health, count
 
     # Set up the display
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -145,10 +173,12 @@ def main():
     # Load font for displaying text
     font = pygame.font.Font(None, 36)
 
+    # Initialize game variables
     generate_maze()  # Generate the maze using Kruskal's algorithm
-
     clock = pygame.time.Clock()
     game_running = True
+    game_over = False
+    count = 0  # Counter to track the number of times player has won
 
     while game_running:
         for event in pygame.event.get():
@@ -167,11 +197,84 @@ def main():
 
         # Check if player reaches the destination
         if player_pos == dest_pos:
-            display_message(screen, font, "You won!")
+            # Increment the win count
+            count += 1
+            
+            if count < 2:
+                # Display win message and continue to next game
+                screen.fill(WHITE)
+                display_message(screen, font, "You won!")
+                pygame.display.flip()
+                pygame.time.wait(2000)  # Display the message for 2 seconds
+                
+                player_pos = (0, 0)  # Reset player position
+                health = 100  # Reset health
+                screen.fill(WHITE)
+                display_message(screen, font, "Press 'N' to next or 'Q' to quit")
+                pygame.display.flip()
+
+                replay_or_quit = False
+                while not replay_or_quit:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
+                        elif event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_n:
+                                # Replay the game
+                                player_pos = (0, 0)
+                                health = 100
+                                generate_maze()
+                                game_over = False
+                                replay_or_quit = True
+                            elif event.key == pygame.K_q:
+                                # Quit the game
+                                pygame.quit()
+                                sys.exit()
+                generate_maze()  # Regenerate maze for a new game
+                
+            else:
+                # Display final message and exit game after a delay
+                screen.fill(WHITE)
+                display_message(screen, font, "Congratulations! You saved a life!")
+                pygame.display.flip()
+                pygame.time.wait(3000)  # Display the final message for 3 seconds
+                pygame.quit()
+                sys.exit()
+
+        # Check if health is depleted
+        if health <= 0 and not game_over:
+            game_over = True
+            # Display "You lose" message
+            screen.fill(WHITE)
+            display_message(screen, font, "You lose, the player died")
             pygame.display.flip()
             pygame.time.wait(2000)  # Display the message for 2 seconds
-            player_pos = (0, 0)  # Reset player position
-            generate_maze()  # Regenerate maze for a new game
+
+        if game_over:
+            # Ask player to replay or quit
+            screen.fill(WHITE)
+            display_message(screen, font, "Press 'R' to replay or 'Q' to quit")
+            pygame.display.flip()
+
+            replay_or_quit = False
+            while not replay_or_quit:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_r:
+                            # Replay the game
+                            generate_maze()
+                            player_pos = (0, 0)
+                            health = 100
+                            game_over = False
+                            replay_or_quit = True
+                        elif event.key == pygame.K_q:
+                            # Quit the game
+                            pygame.quit()
+                            sys.exit()
 
         # Draw the maze, player, and destination
         draw_maze(screen, font)
