@@ -168,7 +168,7 @@ def main():
 
     # Set up the display
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Maze Game")
+    pygame.display.set_caption("Animal Rescue Quest")
 
     # Load font for displaying text
     font = pygame.font.Font(None, 36)
