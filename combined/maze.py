@@ -57,7 +57,7 @@ class DisjointSet:
     def union(self, set1, set2):
         root1 = self.find(set1)
         root2 = self.find(set2)
-        
+
         if root1 != root2:
             # Union by rank
             if self.rank[root1] > self.rank[root2]:
@@ -70,7 +70,7 @@ class DisjointSet:
 
 def generate_maze():
     global maze, player_pos, dest_pos, health
-    
+
     # Reset the maze to its initial state
     maze = [[0 for _ in range(NUM_COLS)] for _ in range(NUM_ROWS)]  # All cells are walls initially
 
@@ -83,7 +83,7 @@ def generate_maze():
             cell = (row, col)
             disjoint_set.parent[cell] = cell
             disjoint_set.rank[cell] = 0
-            
+
             # Add walls around each cell (not in the last row or column)
             if row < NUM_ROWS - 1:
                 walls.append((cell, (row + 1, col)))  # Wall below the current cell
@@ -97,7 +97,7 @@ def generate_maze():
         cell1, cell2 = wall
         root1 = disjoint_set.find(cell1)
         root2 = disjoint_set.find(cell2)
-        
+
         if root1 != root2:
             # Remove the wall between two cells
             row1, col1 = cell1
@@ -106,7 +106,7 @@ def generate_maze():
                 maze[row1][min(col1, col2)] = 1  # Remove vertical wall
             elif col1 == col2:  # Cells are in the same column
                 maze[min(row1, row2)][col1] = 1  # Remove horizontal wall
-            
+
             disjoint_set.union(root1, root2)
 
     # Place player and destination
@@ -135,15 +135,15 @@ def draw_maze(screen, font):
             elif maze[row][col] == 3:
                 screen.blit(hospital_img, (col * CELL_SIZE, row * CELL_SIZE))
      # Draw health value on the screen corner
-    
+
     health_text = font.render(f"Health: {health}", True, RED)
     screen.blit(health_text, (10, 10))  # Display health at (10, 10) on the screen
-    
+
 
 def move_player(dx, dy):
     global player_pos, health
-    
-    
+
+
     new_row = player_pos[0] + dy
     new_col = player_pos[1] + dx
 
@@ -155,10 +155,10 @@ def move_player(dx, dy):
         maze[player_pos[0]][player_pos[1]] = 2  # Place player in the new position
 
 def display_message(screen, font, message):
-    
+
     screen.blit(background_img, (0, 0))
-    
-    
+
+
     text_surface = font.render(message, True, BLACK)
     text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
     screen.blit(text_surface, text_rect)
@@ -199,14 +199,14 @@ def main():
         if player_pos == dest_pos:
             # Increment the win count
             count += 1
-            
+
             if count < 2:
                 # Display win message and continue to next game
                 screen.fill(WHITE)
                 display_message(screen, font, "You won!")
                 pygame.display.flip()
                 pygame.time.wait(2000)  # Display the message for 2 seconds
-                
+
                 player_pos = (0, 0)  # Reset player position
                 health = 100  # Reset health
                 screen.fill(WHITE)
@@ -232,11 +232,11 @@ def main():
                                 pygame.quit()
                                 sys.exit()
                 generate_maze()  # Regenerate maze for a new game
-                
+
             else:
                 # Display final message and exit game after a delay
                 screen.fill(WHITE)
-                display_message(screen, font, "Congratulations! You saved a life!")
+                display_message(screen, font, "        Congratulations! You saved a life! \n You' re the champion of Animal Rescue Quest")
                 pygame.display.flip()
                 pygame.time.wait(3000)  # Display the final message for 3 seconds
                 pygame.quit()

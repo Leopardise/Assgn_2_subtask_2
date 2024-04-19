@@ -156,14 +156,14 @@ def gameplay(health):
                     return  # Return to main menu
 
                 elif is_button_clicked(pygame.Rect((WINDOW_WIDTH - button_size) // 2, int(WINDOW_HEIGHT * 0.45) - button_size // 2, button_size, button_size), pygame.mouse.get_pos()):
-                    subprocess.Popen(["python3", "main4.py"])  # Reset flag after displaying injured animal
-                        # subprocess.Popen(["python3", "main2.py"])
+                    subprocess.Popen(["python", "main4.py"])  # Reset flag after displaying injured animal
+                        # subprocess.Popen(["python", "main2.py"])
                     pygame.quit()
 
 
                 elif is_button_clicked(pygame.Rect((WINDOW_WIDTH - button_size) // 2, int(WINDOW_HEIGHT * 0.80) - button_size // 2, button_size, button_size), pygame.mouse.get_pos()):
                     # print("Bird button clicked. Transition to main2.py.")
-                    subprocess.Popen(["python3", "main5.py"])
+                    subprocess.Popen(["python", "main5.py"])
                     pygame.quit()
 
                 elif is_button_clicked(pygame.Rect(WINDOW_WIDTH - watch_video_button_size - 20, WINDOW_HEIGHT - watch_video_button_size - 20, watch_video_button_size, watch_video_button_size), pygame.mouse.get_pos()):
@@ -179,10 +179,10 @@ def play_video_pygame(video_path, screen, back_button_image):
     pygame.mixer.music.pause()
     clip = VideoFileClip(video_path)
     video = clip.resize(newsize=(screen.get_width(), screen.get_height()))  # Resize video to screen size
-    
+
     # Prepare the back button
     back_button_rect = back_button_image.get_rect(topleft=(20, 20))
-    
+
     # Load and play background music
     pygame.mixer.init()
     background_music = pygame.mixer.Sound("The_Bitter_Bond.wav")
@@ -192,7 +192,7 @@ def play_video_pygame(video_path, screen, back_button_image):
     # print("fps of audio", background_music.fps)
     try:
         # Video playback
-        for frame in video.iter_frames(fps=clip.fps*16, dtype='uint8'):
+        for frame in video.iter_frames(fps=clip.fps*2.5, dtype='uint8'):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -216,7 +216,7 @@ def play_video_pygame(video_path, screen, back_button_image):
 
     # Ensure background music resumes after video playback
     pygame.mixer.music.unpause()
-        
+
 
 # Run the game
 if __name__ == "__main__":
